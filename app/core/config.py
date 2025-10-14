@@ -20,3 +20,4 @@ class Settings(BaseSettings):
     
     
 settings = Settings()
+settings.DB_URL = str(settings.DB_URL)
