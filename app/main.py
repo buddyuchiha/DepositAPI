@@ -2,6 +2,8 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
+from app.api.endpoints.users import users_router
+from app.api.endpoints.deposits import deposits_router
 from core.config import settings 
 from core.logging import logger
 
@@ -14,6 +16,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.include_router(users_router)
+app.include_router(deposits_router)
 
 @app.get("/")
 def root():
