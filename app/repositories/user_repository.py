@@ -1,8 +1,9 @@
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from sqlalchemy.orm import Session
 
-from app.models.models import UsersORM 
-from app.repositories.base_repository import BaseRepository
+from models.models import UsersORM 
+from repositories.base_repository import BaseRepository
+from schemas.users import DefaultUserScheme
 
 
 class UserRepository(BaseRepository):
@@ -10,24 +11,60 @@ class UserRepository(BaseRepository):
         self.session = session
         
     async def get(self) -> list[UsersORM]:
-        async with self.session() as session:
+        async with self.session as session:
             query = select(UsersORM)
             result = await session.execute(query)
+            
             return result.scalars().all()
     
-    def get_single(self, **kwargs):
-        return super().get_single(**kwargs)
+    async def get_single(self, user_id: int) -> UsersORM | None:
+        async with self.session as session: 
+            query = (select(
+                UsersORM
+                ).
+                where(UsersORM.id == user_id)
+            )
+            
+            result = await session.execute(query)
+            
+            return result.scalars().all()
     
-    async def create(self, data) -> dict:
-        async with self.session() as session:
-            user = UsersORM(data)
-            await session.add(user)
+    async def create(self, data: DefaultUserScheme) -> UsersORM:
+        async with self.session as session:
+            user = UsersORM(**data.model_dump())
+            session.add(user)
+            
             await session.commit()
             await session.refresh(user)
-            return {"msg" : "all okay"}
+            
+            return user
         
-    def update(self, **kwargs):
-        return super().update(**kwargs)
-    
-    def delete(self, **kwargs):
-        return super().delete(**kwargs) 
+    async def update(self, user_id: int, data: DefaultUserScheme) -> bool:
+        async with self.session as session:
+            query = (update(
+                UsersORM
+                )
+                .where(UsersORM.id == user_id)
+                .values(
+                    name = data.name, 
+                    email = data.email
+                )
+            )
+            
+            await session.execute(query)
+            await session.commit()
+            
+            return True 
+                
+    async def delete(self, user_id: int) -> bool:
+        async with self.session as session:
+            query = (delete(
+                UsersORM
+                )
+                .where(UsersORM.id == user_id)   
+            )
+            
+            await session.execute(query)
+            await session.commit()
+            
+            return True

@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, text, Numeric
 from sqlalchemy.orm import Mapped, mapped_column
 from typing import Annotated
 
-from app.database.base import Base
+from database.base import Base
 
 
 created_at = Annotated[datetime.datetime, 

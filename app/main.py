@@ -2,8 +2,8 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from app.api.endpoints.users import users_router
-from app.api.endpoints.deposits import deposits_router
+from api.endpoints.users import users_router
+from api.endpoints.deposits import deposits_router
 from core.config import settings 
 from core.logging import logger
 
