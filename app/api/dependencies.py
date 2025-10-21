@@ -1,9 +1,18 @@
 from fastapi import Depends
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.session import get_db
+from repositories.deposit_repository import DepositsRepository
 from repositories.user_repository import UserRepository
 
 
-def get_user_repository(session: Session = Depends(get_db)) -> Session:
+async def get_user_repository(
+    session: AsyncSession = Depends(get_db)
+    ) -> AsyncSession:
     return UserRepository(session)
+
+
+async def get_deposits_repository(
+    session: AsyncSession = Depends(get_db)
+    ) -> AsyncSession:
+    return DepositsRepository(session)
