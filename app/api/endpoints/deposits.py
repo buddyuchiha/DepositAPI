@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from api.dependencies import get_deposits_repository
 from schemas.deposits import (
@@ -66,7 +66,7 @@ async def delete_deposit(
 @deposits_router.post(
   "/calculate-deposit",
   summary="Calculate Deposit",
-  response_model=OutputCalculateDepositScheme
+  response_model=OutputCalculateDepositScheme,
   tags=["Deposits Endpoints"]) 
 async def calculate_deposit(
     data: InputCalculateDepositScheme

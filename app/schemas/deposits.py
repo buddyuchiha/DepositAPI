@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, RootModel, Field
 
 
 class DefaultDepositScheme(BaseModel):
@@ -18,5 +18,5 @@ class InputCalculateDepositScheme(BaseModel):
     rate: float = Field(ge=1, le=8)
     
     
-class OutputCalculateDepositScheme(BaseModel):
-    __root__: dict[str, float]
+class OutputCalculateDepositScheme(RootModel):
+    root: dict[str, float]

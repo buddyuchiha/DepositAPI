@@ -21,7 +21,7 @@ app.include_router(deposits_router)
 
 @app.get("/")
 def root():
-    return {"msg" : "Hello World!"}
+    return {"msg" : "Welcome to DepositAPI"}
 
 
 if __name__ == "__main__":
