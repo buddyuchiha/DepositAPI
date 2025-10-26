@@ -70,3 +70,16 @@ class DepositsRepository(BaseRepository):
             await session.commit()
             
             return True 
+        
+    async def clean(self) -> bool:
+        async with self.session as session: 
+            query = (delete(   
+                DepositsORM             
+                )
+                .where(DepositsORM.id > 0)
+            )
+            
+            await session.execute(query)
+            await session.commit()
+            
+            return True 

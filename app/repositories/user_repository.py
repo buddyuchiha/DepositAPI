@@ -68,3 +68,16 @@ class UserRepository(BaseRepository):
             await session.commit()
             
             return True
+        
+    async def clean(self) -> bool:
+        async with self.session as session: 
+            query = (delete(   
+                UsersORM            
+                )
+                .where(UsersORM.id > 0)
+            )
+            
+            await session.execute(query)
+            await session.commit()
+            
+            return True 
