@@ -13,11 +13,12 @@ REST API для управления пользователями и депоз�
 
 ## Технологии
 
-![Python](https://img.shields.io/badge/-Python%203.10%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-D71F00?logo=sqlalchemy&logoColor=white)
+![Alembic](https://img.shields.io/badge/-Alembic-00A98F?logo=alembic&logoColor=white)
+![Pydantic](https://img.shields.io/badge/-Pydantic-E92063?logo=pydantic&logoColor=white)
 
 ## Установка
 
