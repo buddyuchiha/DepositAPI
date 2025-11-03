@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Body
+from fastapi import APIRouter, Depends
 
 from api.dependencies import get_user_repository
 from schemas.users import DefaultUserScheme
@@ -14,7 +14,7 @@ users_router = APIRouter(
     summary="Create User", 
     tags=["Users Endpoints"])
 async def create_user(
-    data: DefaultUserScheme = Body(),
+    data: DefaultUserScheme,
     db=Depends(get_user_repository)
     ):
     return await db.create(data)
